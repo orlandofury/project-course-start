@@ -1,6 +1,12 @@
 <div class="row">
   <div clas="col-xs-12 col-md-6 col-md-offset-3">
-    <form #authForm="ngForm" (ngSubmit) = "onSubmit(authForm)">
+    <div class="alert alert-danger" *ngIf="error">
+        {{ error }}
+    </div>
+    <div *ngIf="isLoading" style="text-align: center;">
+        <app-loading-spinner></app-loading-spinner>
+    </div>
+    <form #authForm="ngForm" (ngSubmit) = "onSubmit(authForm)" *ngIf="!isLoading">
       <div class="div form-group">
         <label for="email">E-Mail</label>
         <input 
@@ -27,7 +33,7 @@
       </div>
       <div >
         <button class="btn btn-primary" [disabled]="!authForm.valid"> 
-            {{isLoginMode ? 'Login':'Sign up'}} Sign Up
+            {{isLoginMode ? 'Login':'Sign up'}}
         </button> |
         <button class="btn btn-info" (click)="onSwitchMode()" type="button">
             Switch to {{ isLoginMode ? 'Sing Up':'Login'}}
