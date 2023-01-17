@@ -5,9 +5,10 @@
 - [x] Components and Databindings Added
 - [x] Directives added
 - [x] Modifying dropdown directive to close at a click in the document
-- [x] Adding Services and dependency injection
+- [x] Adding Services and dependency injection ALREADY MERGE THIS TO THE MAIN BRANCH
         [github course project branch](https://github.com/orlandofury/project-course-start/tree/project-course-services-di)
-- [x] Routing 46min
-- [] Observables 6min
-- [] Forms 1hr:15min
-- [] Http 34min
+- [x] Routing check tag ROUTING
+- [x] Observables check tag OBSERV
+- [x] Forms check tag FORMS
+- [x] Http check tag HTTP-FIREBASE
+- [] Auth and Route protection
