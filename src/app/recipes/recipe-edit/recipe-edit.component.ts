@@ -39,28 +39,16 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
   }
 
   onSubmit() {
-    // const newRecipe = new Recipe(
-    //   this.recipeForm.value['name'],
-    //   this.recipeForm.value['description'],
-    //   this.recipeForm.value['imagePath'],
-    //   this.recipeForm.value['ingredients']);
     if (this.editMode) {
-      // this.recipeService.updateRecipe(this.id, this.recipeForm.value);
-      this.store.dispatch(
-        new RecipesActions.UpdateRecipe({
-          index: this.id,
-          newRecipe: this.recipeForm.value
-        })
-      );
+      this.store.dispatch(RecipesActions.updateRecipe({index: this.id, recipe: this.recipeForm.value}));
     } else {
-      // this.recipeService.addRecipe(this.recipeForm.value);
-      this.store.dispatch(new RecipesActions.AddRecipe(this.recipeForm.value));
+      this.store.dispatch(RecipesActions.addRecipe({recipe: this.recipeForm.value}));
     }
     this.onCancel();
   }
 
   onAddIngredient() {
-    (<FormArray>this.recipeForm.get('ingredients')).push(
+    (this.recipeForm.get('ingredients') as FormArray).push(
       new FormGroup({
         name: new FormControl(null, Validators.required),
         amount: new FormControl(null, [
@@ -72,7 +60,7 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
   }
 
   onDeleteIngredient(index: number) {
-    (<FormArray>this.recipeForm.get('ingredients')).removeAt(index);
+    (this.recipeForm.get('ingredients') as FormArray).removeAt(index);
   }
 
   onCancel() {
@@ -89,7 +77,7 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
     let recipeName = '';
     let recipeImagePath = '';
     let recipeDescription = '';
-    let recipeIngredients = new FormArray([]);
+    const recipeIngredients = new FormArray([]);
 
     if (this.editMode) {
       // const recipe = this.recipeService.getRecipe(this.id);
@@ -106,8 +94,8 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
           recipeName = recipe.name;
           recipeImagePath = recipe.imagePath;
           recipeDescription = recipe.description;
-          if (recipe['ingredients']) {
-            for (let ingredient of recipe.ingredients) {
+          if (recipe.ingredients) {
+            for (const ingredient of recipe.ingredients) {
               recipeIngredients.push(
                 new FormGroup({
                   name: new FormControl(ingredient.name, Validators.required),
